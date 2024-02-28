@@ -7,6 +7,7 @@ import {
   Heading,
   Button,
 } from "@chakra-ui/react";
+import RichTextEditor from "./RichTextEditor";
 import React, { useEffect, useState } from "react";
 import { Form } from "react-router-dom";
 import { useUser } from "../context/userContext";
@@ -132,6 +133,7 @@ const UserForm = () => {
           Submit
         </Button>
       </Box>
+      {userData.length !== 0 && <RichTextEditor userData={userData} />}
     </Flex>
     // </Form>
   );
