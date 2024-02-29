@@ -6,10 +6,11 @@ import {
   Flex,
   Heading,
   Button,
+  Text,
 } from "@chakra-ui/react";
 import RichTextEditor from "./RichTextEditor";
 import React, { useEffect, useState } from "react";
-import { Form } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
 
 const UserForm = () => {
@@ -32,10 +33,13 @@ const UserForm = () => {
   //     console.log(userData);
   //   };
   const { form, setForm, handleFormData, handleInput, userData } = useUser();
+  const [error, setError] = useState("");
+  // const navigate = useNavigate();
   useEffect(() => {
     console.log("2nd", userData);
     localStorage.setItem("userArr", JSON.stringify(userData));
   }, [userData]);
+
   return (
     // <Form onSubmit={handleFormData}>
     <Flex
@@ -56,6 +60,13 @@ const UserForm = () => {
         boxShadow='5px 5px 5px 3px lightgray'
       >
         {/* <Form useSub> */}
+        {error !== "" ? (
+          <Text color='red.500' textAlign='center'>
+            {error}
+          </Text>
+        ) : (
+          ""
+        )}
         <FormControl isRequired mb='20px'>
           <FormLabel color='teal'>Name:</FormLabel>
           <Input
@@ -83,6 +94,9 @@ const UserForm = () => {
               handleInput
             }
           ></Input>
+          {/* {error.emailError !== "" && (
+            <FormHelperText color='red.500'>{error.emailError}</FormHelperText>
+          )} */}
         </FormControl>
         <FormControl isRequired mb='20px'>
           <FormLabel color='teal'>Address:</FormLabel>
@@ -117,7 +131,7 @@ const UserForm = () => {
           colorScheme='teal'
           size='md'
           // onClick={() => handleIncrement()}
-          // disabled={disableBtn}
+          disabled={error}
           cursor='pointer'
           w='100%'
           // type='submit'
@@ -126,14 +140,25 @@ const UserForm = () => {
             //   ...prev,
             //   id: Date.now().toString(),
             // }));
+            // formIsEmpty();
+
             handleFormData();
-            setForm({ ...form, name: "", email: "", address: "", phone: "" });
+            setForm({
+              ...form,
+              name: "",
+              email: "",
+              address: "",
+              phone: "",
+            });
+
+            // handleFormData();
+            // setForm({ ...form, name: "", email: "", address: "", phone: "" });
           }}
         >
           Submit
         </Button>
       </Box>
-      {userData.length !== 0 && <RichTextEditor userData={userData} />}
+      {userData.length !== 0 && error === "" ? <RichTextEditor /> : ""}
     </Flex>
     // </Form>
   );

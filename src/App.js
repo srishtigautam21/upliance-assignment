@@ -1,5 +1,6 @@
 import "./App.css";
 import Counter from "./component/Counter";
+import RichTextEditor from "./component/RichTextEditor";
 import UserForm from "./component/UserForm";
 import { Heading, Flex, Box } from "@chakra-ui/react";
 import { Routes, Route, Link } from "react-router-dom";
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Counter />} />
         <Route path='/users' element={<UserForm />} />
+        {/* <Route path='/texteditor' element={<RichTextEditor />} /> */}
       </Routes>
     </Box>
   );

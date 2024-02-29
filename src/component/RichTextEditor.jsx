@@ -1,15 +1,32 @@
 import React, { useEffect, useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import { Box } from "@chakra-ui/react";
-const RichTextEditor = ({ userData }) => {
+import { useUser } from "../context/userContext";
+
+const RichTextEditor = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
+  const { userData } = useUser();
+  console.log("inrich", userData);
   const userArr = [];
   let users = [];
+
+  // useEffect(() => {
+  // users = JSON.parse(localStorage.getItem("userArr"));
+  //   console.log("users in 1st useEffect", users);
+  // users.forEach((user) => {
+  //   let keys = Object.keys(user);
+  //   console.log(keys.slice(1));
+  //   keys.slice(1).forEach((key) => {
+  //     userArr.push(user[key]);
+  //   });
+  // });
+  // console.log(users, userArr);
+  // setContent(userArr.toString());
+  // }, [userData]);
+
   useEffect(() => {
-    users = JSON.parse(localStorage.getItem("userArr"));
-    // console.log(users[1]);
-    users.forEach((user) => {
+    JSON.parse(localStorage.getItem("userArr")).forEach((user) => {
       let keys = Object.keys(user);
       console.log(keys.slice(1));
       keys.slice(1).forEach((key) => {
@@ -17,18 +34,10 @@ const RichTextEditor = ({ userData }) => {
       });
     });
 
-    console.log(users, userArr);
-    // setContent(userArr.toString());
+    console.log(userArr);
+    setContent(userArr.toString());
   }, [userData]);
 
-  useEffect(() => {
-    setContent(userArr.toString());
-  }, []);
-
-  //   if (userData.length !== 0) {
-
-  //   }
-  console.log(content);
   return (
     <Box w='80%'>
       <JoditEditor
