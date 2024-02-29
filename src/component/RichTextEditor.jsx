@@ -18,6 +18,7 @@ const RichTextEditor = () => {
       });
     });
     setContent(userArr.toString());
+    // eslint-disable-next-line
   }, [userData]);
 
   return (
