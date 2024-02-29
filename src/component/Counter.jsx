@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Flex } from "@chakra-ui/react";
+import "../App.css";
 
 const Counter = () => {
   const [count, setCount] = useState("#fffff");
@@ -124,6 +125,7 @@ const Counter = () => {
         <Box
           backgroundColor={`red.${count}`}
           w='100%'
+          className='background'
           // height='100px'
           height={`${ht}px`}
           position='absolute'
