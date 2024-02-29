@@ -6,42 +6,20 @@ import {
   Flex,
   Heading,
   Button,
-  Text,
 } from "@chakra-ui/react";
 import RichTextEditor from "./RichTextEditor";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+
 import { useUser } from "../context/userContext";
 
 const UserForm = () => {
-  //   const [form, setForm] = useState({
-  //     id: "",
-  //     name: "",
-  //     email: "",
-  //     address: "",
-  //     phone: 0,
-  //   });
-  //   const [userData, setUserData] = useState([]);
-
-  //   const handleFormData = () => {
-  //     setForm((prev) => ({
-  //       ...prev,
-  //       id: (Date.now() * Math.random()).toFixed(0),
-  //     }));
-  //     setUserData((prev) => [...prev, form]);
-  //     localStorage.setItem("userArr", JSON.stringify(userData));
-  //     console.log(userData);
-  //   };
   const { form, setForm, handleFormData, handleInput, userData } = useUser();
-  const [error, setError] = useState("");
-  // const navigate = useNavigate();
+
   useEffect(() => {
-    console.log("2nd", userData);
     localStorage.setItem("userArr", JSON.stringify(userData));
   }, [userData]);
 
   return (
-    // <Form onSubmit={handleFormData}>
     <Flex
       direction='column'
       alignItems='center'
@@ -59,26 +37,13 @@ const UserForm = () => {
         borderRadius='20px'
         boxShadow='5px 5px 5px 3px lightgray'
       >
-        {/* <Form useSub> */}
-        {error !== "" ? (
-          <Text color='red.500' textAlign='center'>
-            {error}
-          </Text>
-        ) : (
-          ""
-        )}
         <FormControl isRequired mb='20px'>
           <FormLabel color='teal'>Name:</FormLabel>
           <Input
             type='text'
             name='name'
             value={form.name}
-            onChange={
-              // (e) =>
-              //   setForm((prev) => ({ ...prev, name: e.target.value }))
-              //   setForm({ ...form, name: e.target.value })
-              handleInput
-            }
+            onChange={handleInput}
           ></Input>
         </FormControl>
         <FormControl isRequired mb='20px'>
@@ -87,16 +52,8 @@ const UserForm = () => {
             type='email'
             name='email'
             value={form.email}
-            onChange={
-              // (e) =>
-              //   setForm((prev) => ({ ...prev, email: e.target.value }))
-              //   setForm({ ...form, email: e.target.value })
-              handleInput
-            }
+            onChange={handleInput}
           ></Input>
-          {/* {error.emailError !== "" && (
-            <FormHelperText color='red.500'>{error.emailError}</FormHelperText>
-          )} */}
         </FormControl>
         <FormControl isRequired mb='20px'>
           <FormLabel color='teal'>Address:</FormLabel>
@@ -104,12 +61,7 @@ const UserForm = () => {
             type='text'
             name='address'
             value={form.address}
-            onChange={
-              // (e) =>
-              //   setForm((prev) => ({ ...prev, address: e.target.value }))
-              //   setForm({ ...form, address: e.target.value })
-              handleInput
-            }
+            onChange={handleInput}
           ></Input>
         </FormControl>
         <FormControl isRequired mb='20px'>
@@ -118,30 +70,16 @@ const UserForm = () => {
             type='number'
             name='phone'
             value={form.phone}
-            onChange={
-              // (e) =>
-              //   setForm((prev) => ({ ...prev, phone: e.target.value }))
-              //   setForm({ ...form, phone: e.target.value })
-              handleInput
-            }
+            onChange={handleInput}
           ></Input>
         </FormControl>
-        {/* </Form> */}
+
         <Button
           colorScheme='teal'
           size='md'
-          // onClick={() => handleIncrement()}
-          disabled={error}
           cursor='pointer'
           w='100%'
-          // type='submit'
           onClick={() => {
-            // setForm((prev) => ({
-            //   ...prev,
-            //   id: Date.now().toString(),
-            // }));
-            // formIsEmpty();
-
             handleFormData();
             setForm({
               ...form,
@@ -150,17 +88,13 @@ const UserForm = () => {
               address: "",
               phone: "",
             });
-
-            // handleFormData();
-            // setForm({ ...form, name: "", email: "", address: "", phone: "" });
           }}
         >
           Submit
         </Button>
       </Box>
-      {userData.length !== 0 && error === "" ? <RichTextEditor /> : ""}
+      {userData.length !== 0 && <RichTextEditor />}
     </Flex>
-    // </Form>
   );
 };
 

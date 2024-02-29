@@ -19,16 +19,8 @@ const UserProvider = ({ children }) => {
   };
 
   const handleFormData = () => {
-    // e.preventDefault();
-    // setForm((prev) => ({
-    //   ...prev,
-    //   id: (Date.now() * Math.random()).toFixed(0),
-    // }));
     const newUser = { ...form, id: Date.now().toString() };
-    console.log(userData, newUser);
     setUserData([...userData, newUser]);
-    // console.log("2nd", userData, newUser);
-    // localStorage.setItem("userArr", JSON.stringify(userData));
   };
   return (
     <UserContext.Provider
